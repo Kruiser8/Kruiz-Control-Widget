@@ -56,12 +56,12 @@ Add the **index.html** file as a browser source within your broadcast software. 
 
 ### Send Messages from Kruiz Control
 In Kruiz Control, send messages to the widget by passing them through the OBS websocket.
-```m
+```
 # Send data when a command happens
 OnCommand b 0 !tada
 OBS Send MyCustomMessage {user}
 ```
-Receive the data in the widget using `kcConn.on(...)`. `data` is anything that follows the message.
+Receive the data in the widget using `kcConn.on(event, callback)`. Any data that follows the message (like `{user}`) will be passed as a string input to the callback.
 ```js
 kcConn.on('MyCustomMessage', function(data) {
   console.log(data); // data is the value of {user}
@@ -73,8 +73,8 @@ In the widget, send messages to Kruiz Control by passing them through `kcConn.se
 ```js
 kcConn.send('MyOtherCustomMessage', 'Hey there!');
 ```
-Receive the data in Kruiz Control using `OnOBSCustomMessage`. `{data}` will be the second parameter anything that follows the message.
-```m
+Receive the data in Kruiz Control using `OnOBSCustomMessage`. `data` will be passed to the `OnOBSCustomMessage` as a parameter.
+```
 # {data} is 'Hey there!' in the below example
 OnOBSCustomMessage MyOtherCustomMessage
 Chat Send {data}

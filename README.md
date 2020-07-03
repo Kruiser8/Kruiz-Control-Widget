@@ -3,9 +3,6 @@
 <p align="center"><i>
 Kruiz Control Widget is a template for connecting browser sources to Kruiz Control through the OBS websocket.
 </i></p>
-<p align="center"><b>
-  <a href="https://github.com/Kruiser8/Kruiz-Control-Widget/archive/master.zip">Download</a> |
-</b></p>
 
 <p align="center"><i><b>
   <a href="https://twitter.com/kruiser8">@Kruiser8</a> |
@@ -20,6 +17,9 @@ Kruiz Control Widget is a template for connecting browser sources to Kruiz Contr
 - [Installation](#installation)
   + [OBS Websocket](#obs-websocket)
   + [Add as Browser Source](#add-as-browser-source)
+- [Configure the Script](#configure-the-script)
+  + [Send Messages from Kruiz Control](#send-messages-from-kruiz-control)
+  + [Send Messages from the Widget](#send-messages-from-the-widget)
 - [Support Kruiz Control](#support-kruiz-control)
 - [Credits](#credits)
 
@@ -41,9 +41,20 @@ It is **highly recommended** to use a password!
 
 In **js/index.js**, update the OBS websocket url and password to match the settings you configured in the **WebSockets Server Settings** window mentioned above.
 
-### Configure the Script
+### Add as Browser Source
+Add the **index.html** file as a browser source within your broadcast software. It is *recommended* to add this source to one scene that is included in all other scenes (like your alert scene) rather than recreate this source in every scene.
 
-#### Send Messages from Kruiz Control
+#### Steps for adding to OBS
+- In OBS, under **Sources** click the + icon to add a new **Browser** source.
+- Name it and select OK.
+- Check the `Local file` checkbox.
+- Click **Browse** and open the **index.html** file within the Kruiz Control Widget directory.
+
+***
+
+## Configure the Script
+
+### Send Messages from Kruiz Control
 In Kruiz Control, send messages to the widget by passing them through the OBS websocket.
 ```m
 # Send data when a command happens
@@ -57,7 +68,7 @@ kcConn.on('MyCustomMessage', function(data) {
 });
 ```
 
-#### Send Messages from the Widget
+### Send Messages from the Widget
 In the widget, send messages to Kruiz Control by passing them through `kcConn.send(message, data)` function.
 ```js
 kcConn.send('MyOtherCustomMessage', 'Hey there!');
@@ -68,15 +79,6 @@ Receive the data in Kruiz Control using `OnOBSCustomMessage`. `{data}` will be t
 OnOBSCustomMessage MyOtherCustomMessage
 Chat Send {data}
 ```
-
-### Add as Browser Source
-Add the **index.html** file as a browser source within your broadcast software. It is *recommended* to add this source to one scene that is included in all other scenes (like your alert scene) rather than recreate this source in every scene.
-
-#### Steps for adding to OBS
-- In OBS, under **Sources** click the + icon to add a new **Browser** source.
-- Name it and select OK.
-- Check the `Local file` checkbox.
-- Click **Browse** and open the **index.html** file within the Kruiz Control Widget directory.
 
 ***
 

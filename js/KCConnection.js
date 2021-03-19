@@ -24,7 +24,7 @@ class KCConnection {
 
   async _initOBS(address, password) {
     await this.timeout(Math.random() * 10 * 1000);
-    return this._initOBSAsync(address, password);
+    this._initOBSAsync(address, password);
   }
 
   _initOBSAsync(address, password) {

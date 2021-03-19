@@ -28,6 +28,9 @@ Kruiz Control Widget is a template for connecting browser sources to Kruiz Contr
 ## Overview
 Kruiz Control Widget requires that you use OBS and the OBS websocket. This allows Kruiz Control to pass information from Kruiz Control to the Widget through the websocket and vice versa.
 
+### :warning: Warning for users of SLOBS
+This integration method is **not compatible** with SLOBS (StreamLabs OBS).
+
 ***
 
 ## Installation

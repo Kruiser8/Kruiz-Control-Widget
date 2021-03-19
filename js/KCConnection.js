@@ -1,6 +1,8 @@
 class KCConnection {
   constructor(address, password) {
-    this.obs = this._initOBS(address, password);
+    address = address || 'localhost:4444';
+    password = password || '';
+    this._initOBS(address, password);
     this._triggers = {
       'open': [],
       'error': []
@@ -20,7 +22,12 @@ class KCConnection {
       }
   }
 
-  _initOBS(address, password) {
+  async _initOBS(address, password) {
+    await this.timeout(Math.random() * 10 * 1000);
+    return this._initOBSAsync(address, password);
+  }
+
+  _initOBSAsync(address, password) {
     var obs = new OBSWebSocket();
     obs.connect({ address: address, password: password })
     .then(() => {
@@ -46,7 +53,7 @@ class KCConnection {
       obs.disconnect();
     });
 
-    return obs;
+    this.obs = obs;
   }
 
   send(message, data) {
@@ -59,5 +66,9 @@ class KCConnection {
     }).catch(err => {
       this.triggerHandler('error', err);
     });
+  }
+
+  timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }

@@ -1,7 +1,7 @@
 // Do stuff if the document is fully loaded
 document.addEventListener("DOMContentLoaded", function() {
   var kcConn = new KCConnection(
-    'localhost:4444', 'YOUR_PASSWORD'
+    'ws://127.0.0.1:4455', 'YOUR_PASSWORD'
   );
 
   kcConn.on('connected', function() {
@@ -17,6 +17,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
   kcConn.on('MyCustomMessage', function(data) {
     // do stuff with data
-    console.log(data);
+    console.error(data);
   });
 });

@@ -1,6 +1,6 @@
 class KCConnection {
   constructor(address, password) {
-    address = address || 'localhost:4444';
+    address = address || 'ws://127.0.0.1:4455';
     password = password || '';
     this._initOBS(address, password);
     this._triggers = {
@@ -29,7 +29,7 @@ class KCConnection {
 
   _initOBSAsync(address, password) {
     var obs = new OBSWebSocket();
-    obs.connect({ address: address, password: password })
+    obs.connect(address, password)
     .then(() => {
       this.triggerHandler('connected');
     })
@@ -37,13 +37,12 @@ class KCConnection {
       this.triggerHandler('error', err);
     });
 
-
     // You must add this handler to avoid uncaught exceptions.
     obs.on('error', function(err) {
       this.triggerHandler('error', err);
     }.bind(this));
 
-    obs.on('BroadcastCustomMessage', function(broadcast) {
+    obs.on('CustomEvent', function(broadcast) {
       if (broadcast.realm === 'kruiz-control' && typeof(broadcast.data.message) !== 'undefined') {
         this.triggerHandler(broadcast.data.message, broadcast.data.data);
       }
@@ -57,11 +56,13 @@ class KCConnection {
   }
 
   send(message, data) {
-    this.obs.send('BroadcastCustomMessage', {
-      'realm': 'kruiz-control',
-      'data': {
-        'message': message,
-        'data': data
+    this.obs.call('BroadcastCustomEvent', {
+      'eventData': {
+        'realm': 'kruiz-control',
+        'data': {
+          'message': message,
+          'data': data
+        }
       }
     }).catch(err => {
       this.triggerHandler('error', err);

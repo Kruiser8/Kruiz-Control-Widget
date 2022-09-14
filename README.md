@@ -28,6 +28,8 @@ Kruiz Control Widget is a template for connecting browser sources to Kruiz Contr
 ## Overview
 Kruiz Control Widget requires that you use OBS and the OBS websocket. This allows Kruiz Control to pass information from Kruiz Control to the Widget through the websocket and vice versa.
 
+_**Note:** (September 13, 2022) Fixed authentication issue when multiple widgets connect simultaneously to the websocket by adding random delay to the widget connection. If you'd like to disable or configure this delay, see line 26 of [`js/KCConnection.js`](https://github.com/Kruiser8/Kruiz-Control-Widget/blob/master/js/KCConnection.js#L26)._
+
 _**Note:** (March 18, 2021) Fixed authentication issue when multiple widgets connect simultaneously to the websocket by adding random delay to the widget connection. If you'd like to disable or configure this delay, see line 26 of [`js/KCConnection.js`](https://github.com/Kruiser8/Kruiz-Control-Widget/blob/master/js/KCConnection.js#L26)._
 
 ### :warning: SLOBS Not Supported
@@ -38,7 +40,7 @@ The Kruiz Control Widget is **not compatible** with SLOBS (Streamlabs OBS).
 ## Installation
 
 ### OBS Websocket
-To use this widget, install the [obs-websocket](https://github.com/Palakis/obs-websocket/releases) plugin. Reopen OBS after installing.
+To use this widget, install the [obs-websocket](https://github.com/Palakis/obs-websocket/releases) plugin. If using the OBS websocket v4.9.x or below, [download version 1.0.0 of the widget](https://github.com/Kruiser8/Kruiz-Control-Widget/releases/tag/v1.0.0). Reopen OBS after installing.
 
 In OBS, click **Tools** > **WebSockets Server Settings** and enable the websocket server.
 
